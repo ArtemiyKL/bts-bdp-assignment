@@ -33,3 +33,6 @@ venv
 
 .report.json
 .pytest.json
+
+
+.env
