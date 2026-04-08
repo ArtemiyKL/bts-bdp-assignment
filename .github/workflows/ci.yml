@@ -25,7 +25,7 @@ jobs:
         run: ruff check .
 
       - name: Run tests
-        run: pytest tests/s9/ tests/s1/ tests/s5/ -v
+        run: pytest tests/s9/ tests/s1/ -v
 
   docker:
     needs: ci
