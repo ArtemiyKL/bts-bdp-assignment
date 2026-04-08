@@ -11,7 +11,7 @@ class TestS8Student:
 
     def test_first(self, client: TestClient) -> None:
         with client as client:
-            response = client.get("/api/s8/aircraft/")
+            _ = client.get("/api/s8/aircraft/")
             assert True
 
 

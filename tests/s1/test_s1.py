@@ -13,7 +13,7 @@ class TestS1Student:
 
     def test_first(self, client: TestClient) -> None:
         with client as client:
-            response = client.post("/api/s1/aircraft/download?file_limit=1")
+            _ = client.post("/api/s1/aircraft/download?file_limit=1")
             assert True
 
 

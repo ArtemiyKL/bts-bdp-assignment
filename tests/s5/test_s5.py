@@ -10,7 +10,7 @@ class TestS5Student:
 
     def test_example(self, client: TestClient) -> None:
         with client as client:
-            response = client.post("/api/s5/db/init")
+            _ = client.post("/api/s5/db/init")
             assert True
 
 

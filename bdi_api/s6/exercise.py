@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, status, HTTPException
+from fastapi import APIRouter, HTTPException, status
 from fastapi.params import Query
 from pydantic import BaseModel
 from pymongo import MongoClient
@@ -71,13 +71,13 @@ def list_aircraft(
     """List all aircraft with pagination."""
     collection = get_collection()
     skip_amount = (page - 1) * page_size
-    
+
     # Use aggregation to get distinct aircraft and project required fields
     pipeline = [
         {"$group": {
-            "_id": "$icao", 
-            "icao": {"$first": "$icao"}, 
-            "registration": {"$first": "$registration"}, 
+            "_id": "$icao",
+            "icao": {"$first": "$icao"},
+            "registration": {"$first": "$registration"},
             "type": {"$first": "$type"}
         }},
         {"$project": {"_id": 0}}, # Hide Mongo ID
@@ -85,7 +85,7 @@ def list_aircraft(
         {"$skip": skip_amount},
         {"$limit": page_size}
     ]
-    
+
     return list(collection.aggregate(pipeline))
 
 
@@ -93,14 +93,14 @@ def list_aircraft(
 def get_aircraft(icao: str) -> dict:
     """Get the latest position data for a specific aircraft."""
     collection = get_collection()
-    
+
     # Sort by timestamp descending (-1) to get the latest position
     doc = collection.find_one({"icao": icao}, {"_id": 0}, sort=[("timestamp", -1)])
-    
+
     if not doc:
         # Return 404 if not found
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Aircraft not found")
-        
+
     return doc
 
 
@@ -109,6 +109,6 @@ def delete_aircraft(icao: str) -> dict:
     """Remove all position records for an aircraft."""
     collection = get_collection()
     result = collection.delete_many({"icao": icao})
-    
+
     # Return the exact number of deleted documents
     return {"deleted": result.deleted_count}

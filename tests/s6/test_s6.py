@@ -11,7 +11,7 @@ class TestS6Student:
 
     def test_first(self, client: TestClient) -> None:
         with client as client:
-            response = client.post(
+            _ = client.post(
                 "/api/s6/aircraft",
                 json={
                     "icao": "test01",

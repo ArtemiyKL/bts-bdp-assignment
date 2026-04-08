@@ -48,8 +48,8 @@ def download_data(
 
     TIP: always clean the download folder before writing again to avoid having old files.
     """
-    download_dir = os.path.join(settings.raw_dir, "day=20231101")
-    base_url = settings.source_url + "/2023/11/01/"
+    download_dir = os.path.join(settings.raw_dir, "day=20231101")  # noqa: F841
+    base_url = settings.source_url + "/2023/11/01/"  # noqa: F841
     # TODO Implement download
 
     return "OK"

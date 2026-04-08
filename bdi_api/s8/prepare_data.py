@@ -9,9 +9,10 @@ Run: python -m bdi_api.s8.prepare_data
 import json
 import os
 import sqlite3
-import requests
-import pandas as pd
 from pathlib import Path
+
+import pandas as pd
+import requests
 
 DATA_DIR = Path(__file__).parent.parent.parent / "data" / "s8"
 DB_PATH = DATA_DIR / "aircraft.db"

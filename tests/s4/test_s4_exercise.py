@@ -2,12 +2,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-import pytest
-from fastapi import FastAPI
-from fastapi.testclient import TestClient
-from starlette import status
+import pytest  # noqa: E402
+from fastapi import FastAPI  # noqa: E402
+from fastapi.testclient import TestClient  # noqa: E402
+from starlette import status  # noqa: E402
 
-from bdi_api.s4.exercise import s4, settings
+from bdi_api.s4.exercise import s4, settings  # noqa: E402
 
 settings.s3_bucket = "bdi-aircraft-klimkin"
 

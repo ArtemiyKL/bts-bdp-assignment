@@ -1,7 +1,9 @@
 from typing import Annotated
-from fastapi import APIRouter, status, HTTPException, Query
+
 import psycopg2
+from fastapi import APIRouter, HTTPException, Query, status
 from psycopg2.extras import RealDictCursor
+
 from bdi_api.settings import Settings
 
 settings = Settings()
@@ -22,7 +24,7 @@ def get_db_connection():
         conn.autocommit = True
         return conn
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Database connection error: {e}")
+        raise HTTPException(status_code=500, detail=f"Database connection error: {e}") from e
 
 @s5.post("/db/init")
 def init_database() -> str:
@@ -98,7 +100,8 @@ def seed_database() -> str:
     ('Employee Onboarding System', 30000.00), ('Financial Audit', 25000.00), ('Customer Loyalty Program', 60000.00);
 
     INSERT INTO employee_project (employee_id, project_id) VALUES
-    (1, 1), (1, 2), (2, 2), (2, 4), (3, 4), (4, 3), (4, 6), (5, 4), (6, 3), (7, 5), (8, 3), (9, 1), (9, 2), (10, 6), (11, 5), (12, 4);
+    (1, 1), (1, 2), (2, 2), (2, 4), (3, 4), (4, 3), (4, 6), (5, 4), (6, 3), (7, 5),
+    (8, 3), (9, 1), (9, 2), (10, 6), (11, 5), (12, 4);
 
     INSERT INTO salary_history (employee_id, change_date, old_salary, new_salary, reason) VALUES
     (1, '2021-03-15', 70000.00, 75000.00, 'Annual review'),
@@ -158,7 +161,7 @@ def list_department_employees(dept_id: int) -> list[dict]:
 def department_stats(dept_id: int) -> dict:
     """Department KPIs"""
     query = """
-        SELECT 
+        SELECT
             d.name as department_name,
             COUNT(DISTINCT e.id) as employee_count,
             AVG(e.salary) as avg_salary,

@@ -1,7 +1,7 @@
 import sqlite3
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, status
 from pydantic import BaseModel
 
 from bdi_api.settings import Settings
@@ -104,4 +104,5 @@ def get_aircraft_co2(icao: str, day: str) -> AircraftCO2Return:
             co2 = (fuel_used_kg * 3.15) / 907.185
 
     conn.close()
-    return AircraftCO2Return(icao=icao, hours_flown=round(hours_flown, 4), co2=round(co2, 4) if co2 is not None else None)
+    co2_value = round(co2, 4) if co2 is not None else None
+    return AircraftCO2Return(icao=icao, hours_flown=round(hours_flown, 4), co2=co2_value)

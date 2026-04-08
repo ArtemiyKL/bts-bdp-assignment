@@ -9,7 +9,7 @@ class TestS9Student:
 
     def test_first(self, client: TestClient) -> None:
         with client as client:
-            response = client.get("/api/s9/pipelines")
+            _ = client.get("/api/s9/pipelines")
             assert True
 
 

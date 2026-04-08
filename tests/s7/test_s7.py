@@ -11,7 +11,7 @@ class TestS7Student:
 
     def test_first(self, client: TestClient) -> None:
         with client as client:
-            response = client.post(
+            _ = client.post(
                 "/api/s7/graph/person",
                 json={
                     "name": "TestUser",
