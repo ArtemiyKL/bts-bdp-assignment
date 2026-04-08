@@ -30,6 +30,7 @@ venv
 
 /data/**
 !/data/**/.gitkeep
+data/s8/
 
 .report.json
 .pytest.json
