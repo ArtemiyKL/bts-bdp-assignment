@@ -29,6 +29,18 @@ class Settings(BaseSettings):
         default="mongodb://localhost:27017",
         description="MongoDB connection URL. Set BDI_MONGO_URL for remote, e.g. mongodb+srv://user:pass@cluster.mongodb.net",
     )
+    neo4j_url: str = Field(
+        default="bolt://localhost:7687",
+        description="Neo4J connection URL",
+    )
+    neo4j_user: str = Field(
+        default="neo4j",
+        description="Neo4J username",
+    )
+    neo4j_password: str = Field(
+        default="password123",
+        description="Neo4J password",
+    )
 
     model_config = SettingsConfigDict(env_prefix="bdi_")
 
